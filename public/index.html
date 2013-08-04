@@ -103,6 +103,8 @@
             margin: 0 auto;
         }
     </style>
+    <!-- blueimp/Gallery -->
+    <link rel="stylesheet" href="css/blueimp-gallery.min.css">
 
 <script type="text/javascript">
 
@@ -161,7 +163,19 @@
 
     <div class="row-fluid pitch">
         <div class="span5 offset1 video">
+            <!--
             <img src="images/preview_4x3.jpg" alt="preview">
+            -->
+            <div id="blueimp-image-carousel-emb" 
+                class="blueimp-gallery blueimp-gallery-carousel" 
+                style="max-width:100%; height:300px; margin-top:2px;"
+                >
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="play-pause"></a>
+            </div>        
         </div>
         
         <div class="span5 actions">
@@ -347,6 +361,84 @@
     ga('send', 'pageview');
 
 </script>
+<script type="text/javascript" src="js/libs/blueimp-gallery.min.js"></script>
 
+<script type="text/javascript">
+  var gallery;
+  var playing = true;
+
+  /* [Play/Pause] Button */
+  /*
+  $('#btn-playpause').click( function(event){
+      console.log( 'play/pause: playing:' + playing);
+      if ( gallery ) {
+          if ( playing ) {
+              gallery.pause();
+              $(this).text('Play');
+          } else {
+              gallery.play();
+              $(this).text('Pause');
+          }
+          playing = !playing;
+      }
+  });
+  */
+
+  /* [Fullscreen] Button */
+  /*
+  $('#btn-fullscreen').click( function(event){
+      console.log( 'fullscreen: playing:' + playing);
+      if ( gallery ) {
+          if ( playing ) {
+              gallery.pause();
+              playing = !playing;
+          }
+          var pos = gallery.getIndex();
+          var links = gallery.list;
+          console.log( 'pos:' + pos);
+          console.log( 'links:' + links);
+
+          var galleryFullscreen = blueimp.Gallery( links, {
+              index:links[pos],
+              container: '#blueimp-fullscreen',
+              startSlideshow: true,
+              onslide: function(index, slide) {
+                  gallery.slide(index);
+              },
+              onclose: function() {
+                  gallery.play();
+                  $(this).text('Pause');
+                  playing = true;
+              }
+          });
+      }
+
+  });
+  */
+
+  var sampleImageSource = function(ready) {
+
+        var carouselLinks = [];
+        carouselLinks.push( { href: 'images/preview_4x3.jpg', title: 'Previews' });
+        carouselLinks.push( { href: 'images/edit_4x3.jpg', title: 'Location' });
+        carouselLinks.push( { href: 'images/trip.jpg', title: 'Trip Journal' });
+        carouselLinks.push( { href: 'images/folder_4x3.jpg', title: 'Location' });
+        carouselLinks.push( { href: 'images/edit.jpg', title: 'Edit' });
+        carouselLinks.push( { href: 'images/map_4x3.jpg', title: 'Location' });
+        carouselLinks.push( { href: 'images/folder.jpg', title: 'Folder' });
+
+        ready( carouselLinks );
+  };
+
+  sampleImageSource( function(carouselLinks) {
+        // Initialize the Gallery as image carousel:
+        gallery = blueimp.Gallery(carouselLinks, {
+            container: '#blueimp-image-carousel-emb',
+            carousel: true,
+            fullScreen: true,
+            slideshowInterval: 3000
+        });
+  });
+ </script>
   </body>
 </html>
